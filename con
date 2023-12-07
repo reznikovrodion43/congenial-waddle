@@ -1,0 +1,18 @@
+class FuturesViewModel: ObservableObject {
+    
+    @Published var title = "start"
+    let url = URL(string: "https://www.google.com")!
+    
+    var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        download()
+    }
+    
+    func download() {
+        getFuturePublisher()
+            .sink { _ in
+                
+            } receiveValue: { [weak self] returnedValue in
+                self?.title = returnedValue
+            }
